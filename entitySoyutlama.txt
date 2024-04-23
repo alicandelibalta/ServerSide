@@ -1,0 +1,31 @@
+// models/User.js
+
+class User {
+  constructor(id, username, email, password) {
+    this.id = id;
+    this.username = username;
+    this.email = email;
+    this.password = password;
+  }
+}
+
+function createUser(id, username, email, password) {
+  return new User(id, username, email, password);
+}
+
+module.exports = { createUser };
+
+
+models klasöründeki entityleri direkt export etmeyelim böyle view tarzı şeyler oluşturalım.
+
+class Article {
+  constructor(id) {
+    this.id = id;
+  }
+
+  name (name) {
+    this.name = name;
+  }
+}
+// const article = new Article();
+// article.name("alican"); çağırıken böyle çağırıcaz.
