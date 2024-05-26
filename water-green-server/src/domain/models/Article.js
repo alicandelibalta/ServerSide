@@ -1,7 +1,11 @@
-class Articles {
+module.exports = class Article {
   constructor(id, creatorId, createdDate) {
     this.id = id;
     this.creatorId = creatorId;
+    this.createdDate = new Date(); // Constructor içinde başlatılıyor
+  }
+
+  setCreatedDate(createdDate) {
     this.createdDate = createdDate;
   }
 
@@ -27,5 +31,3 @@ class Articles {
 
 
 }
-
-module.exports = Articles;
