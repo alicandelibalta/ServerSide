@@ -1,15 +1,13 @@
-// database.js
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env.development') });
 const { Sequelize } = require('sequelize');
-const environment = require('../../config/environment');
 
-const sequelize = new Sequelize(environment.database.url);
-
-// const sequelize = new Sequelize('database_name', 'username', 'password', {
-//     host: 'localhost',
-//     dialect: 'postgres',
-//     logging: false, // İsteğe bağlı: SQL sorgularının konsolda görünmesini istemiyorsanız false yapın
-// });
-
-sequelize.import('./ormmodels/UserOrm');
+const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USER, process.env.DB_PASSWORD, {
+  host: process.env.DB_HOST,
+  dialect: 'postgres',
+  port: process.env.DB_PORT,
+});
 
 module.exports = sequelize;
+
+//process.env. ile başlayan değerlerin önündeki sabit değerler undefined veriyor ama bunu önemseme.
