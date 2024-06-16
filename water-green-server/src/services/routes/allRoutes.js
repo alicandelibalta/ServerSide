@@ -1,13 +1,9 @@
 const express = require('express');
-const router = express.Router();
+const allRoutes = express.Router();
 const usersRouter = require('./userRoutes');
 
-router.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+allRoutes.use('/users', usersRouter);
 
-router.use('/users', usersRouter);
-
-module.exports = router;
+module.exports = allRoutes;
 
 

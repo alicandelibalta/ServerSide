@@ -1,45 +1,74 @@
-const db = require('../../infrastructure/orm/sequelize/ormModels');
+const getUser = require('../../application/crud/admin/GetUser');
+const createUser = require('../../application/crud/admin/CreateUser');
+const getAllUser = require('../../application/crud/admin/GetAllUser')
+const userRepository = require('../../infrastructure/repositories/UserSolidRepository');
 
-exports.findUsers = async (req, res) => {
-  try {
-    const users = await db.UserOrm.findAll();
-    res.json(users);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+class UserController {
+  async getUser(req, res) {
+    try {
+      const user = await getUser(req.params.id, { userRepository });
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   }
-};
 
-exports.createUser = async (req, res) => {
-  try {
-    const { userId, userName, email, password, role } = req.body;
-    const newUser = await db.UserOrm.create({ userId, userName, email, password, role });
-    res.status(201).json(newUser);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+  async getAllUser(res) {
+    try {
+      const user = await getAllUser({ userRepository });
+      res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   }
-};
 
-exports.getUser = async (req, res) => {
-  try {
-    const user = await db.UserOrm.findByPk(req.params.id);
-    if (!user) return res.status(404).send('User not found');
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+  async createUser(req, res,) {
+    try {
+      const { userId, firstName, lastName, email, password, role } = req.body;
+      const userName = `${firstName} ${lastName}`;
+      const user = await createUser(userId, userName, password, role, email, { userRepository });
+      res.status(201).json(user);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   }
-};
 
-exports.deleteUser = async (req, res) => {
-  try {
-    const user = await db.UserOrm.findByPk(req.params.id);
-    if (!user) return res.status(404).send('User not found');
-    await user.destroy();
-    res.status(204).send();
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
-  }
-};
+  // async removeUser(req, res) {
+  //   try {
+  //     const success = await removeUser(req.params.id, { userRepository });
+  //     if (success) {
+  //       res.status(200).json({ message: 'User removed' });
+  //     } else {
+  //       res.status(404).json({ message: 'User not found' });
+  //     }
+  //   } catch (error) {
+  //     res.status(500).json({ error: error.message });
+  //   }
+  // }
+
+  // async updateUser(req, res) {
+  //   try {
+  //     const { firstName, lastName, email, password, role } = req.body;
+  //     const userData = { firstName, lastName, email, password, role };
+  //     const user = await updateUser(req.params.id, userData, { userRepository });
+  //     if (user) {
+  //       res.status(200).json(user);
+  //     } else {
+  //       res.status(404).json({ message: 'User not found' });
+  //     }
+  //   } catch (error) {
+  //     res.status(500).json({ error: error.message });
+  //   }
+  // }
+
+  // async findUsers(req, res) {
+  //   try {
+  //     const users = await findUsers({ userRepository });
+  //     res.status(200).json(users);
+  //   } catch (error) {
+  //     res.status(500).json({ error: error.message });
+  //   }
+  // }
+}
+
+module.exports = new UserController();

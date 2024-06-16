@@ -1,25 +1,33 @@
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, 'src/.env.development') });
 
-// console.log("DB_DATABASE:", process.env.DB_DATABASE); // Değerleri kontrol etmek için bu satırı ekleyin
+// console.log("DB_DATABASE:", process.env.DB_DATABASE); //Control DB.
 
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const db = require('./infrastructure/orm/sequelize/ormModels');
 const allRoutes = require('./services/routes/allRoutes');
+const userRoutes = require('./services/routes/userRoutes');
+const { swaggerUi, swaggerDocs } = require('./services/swagger/swagger');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
-app.use('/', allRoutes);
-
-// Middleware
+// Middlewares.
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Veritabanını senkronize etme
+app.use('/', allRoutes);
+app.use('/', userRoutes);
+
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+const swaggerDocument = require('./swagger.json'); // Swagger JSON dosyanız
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+// Database synchronization.
 db.sequelize
   .sync()
   .then(() => {
