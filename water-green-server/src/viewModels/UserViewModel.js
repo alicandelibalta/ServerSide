@@ -3,6 +3,7 @@ class UserViewModel {
     this.id = user.id;
     this.firstName = user.firstName;
     this.lastName = user.lastName;
+    this.password = user.password;
     this.email = user.email;
     this.role = user.role;
     this.country = user.country;
@@ -19,7 +20,7 @@ class UserViewModel {
   }
 
   static toViewModels(users) {
-    return users.map(user => new UserViewModel(user));
+    return users.map((user) => new UserViewModel(user));
   }
 
   // View modelden veritabanı modeline dönüşüm
@@ -29,6 +30,7 @@ class UserViewModel {
       firstName: viewModel.firstName,
       lastName: viewModel.lastName,
       email: viewModel.email,
+      password: viewModel.password,
       role: viewModel.role,
       country: viewModel.country,
       city: viewModel.city,
@@ -40,7 +42,9 @@ class UserViewModel {
   }
 
   static toDatabaseModels(viewModels) {
-    return viewModels.map(viewModel => UserViewModel.toDatabaseModel(viewModel));
+    return viewModels.map((viewModel) =>
+      UserViewModel.toDatabaseModel(viewModel)
+    );
   }
 }
 

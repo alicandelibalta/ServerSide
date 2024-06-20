@@ -3,15 +3,15 @@ const router = express.Router();
 const AdminController = require('../controllers/AdminController');
 
 // User endpoints
-router.get('/users', AdminController.getAllUsers);
-router.get('/users/:id', AdminController.getUserById);
-router.post('/users', AdminController.createUser);
-router.put('/users/:id', AdminController.updateUser);
-router.delete('/users/:id', AdminController.deleteUser);
+router.get('/getAll', AdminController.getAllUsers);
+router.get('/getUserById/:id', AdminController.getUserById);
+router.post('/createUser', AdminController.createUser);
+router.put('/updateUser/:id', AdminController.updateUser);
+router.delete('/deleteUser/:id', AdminController.deleteUser);
 
 // Article endpoints
-router.post('/articles', AdminController.createArticle);
-router.put('/articles/:id', AdminController.updateArticle);
-router.delete('/articles/:id', AdminController.deleteArticle);
+router.post('/createArticle', AdminController.createArticle);
+router.put('/updateArticle/:id', AdminController.updateArticle);
+router.delete('/deleteArticle/:id', AdminController.deleteArticle);
 
 module.exports = router;

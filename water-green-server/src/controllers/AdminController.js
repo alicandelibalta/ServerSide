@@ -5,7 +5,7 @@ const articleService = require('../services/ArticleService');
 const ArticleViewModel = require('../viewModels/articleViewModel');
 
 class AdminController {
-  async getAllUsers(res) {
+  async getAllUsers(req, res) {
     try {
       const users = await userService.getAllUsers();
       const userViewModels = UserViewModel.toViewModels(users);
