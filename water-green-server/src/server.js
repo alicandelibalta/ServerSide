@@ -1,5 +1,5 @@
 const app = require("./app");
-const sequelize = require("./infrastructure/sequelize/sequelize");
+const sequelize = require("./infrastructure/sequelize");
 
 const path = require("path");
 require("dotenv").config({

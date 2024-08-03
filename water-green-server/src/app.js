@@ -22,7 +22,7 @@ app.use(morgan("dev"));
 app.use(cors());
 
 //routes
-app.use('/admin', router);
+app.use('/api/admin', router);
 
 //swagger
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

@@ -1,13 +1,13 @@
 
 const articleService = require('../services/ArticleService');
-const ArticleViewModel = require('../viewModels/articleViewModel');
+// const ArticleViewModel = require('../viewModels/articleViewModel');
 
 class ArticleController {
   // Create a new article
   async createArticle(req, res) {
     try {
-      const articleViewModel = new ArticleViewModel(req.body);
-      const newArticle = await articleService.createArticle(articleViewModel);
+      const article = new Article(req.body);
+      const newArticle = await articleService.createArticle(article);
       res.status(201).json(newArticle);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -17,8 +17,8 @@ class ArticleController {
   // Update an existing article
   async updateArticle(req, res) {
     try {
-      const articleViewModel = new ArticleViewModel(req.body);
-      const updatedArticle = await articleService.updateArticle(req.params.id, articleViewModel);
+      const article = new Article(req.body);
+      const updatedArticle = await articleService.updateArticle(req.params.id, article);
       res.status(200).json(updatedArticle);
     } catch (error) {
       res.status(500).json({ error: error.message });
