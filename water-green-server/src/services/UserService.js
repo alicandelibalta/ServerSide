@@ -1,27 +1,27 @@
-const User = require('../models/user');
+const UserRepository = require ('../repositories/UserRepository');
 
 class UserService {
   async createUser(userData) {
-    const newUser = await User.create(userData);
+    const newUser = await UserRepository.create(userData);
     return newUser;
   }
 
   async updateUser(id, userData) {
-    await User.update(userData, { where: { id } });
-    return await User.findByPk(id); // Güncellenmiş kullanıcıyı döndür
+    await UserRepository.update(userData, { where: { id } });
+    return await UserRepository.findByPk(id); // Güncellenmiş kullanıcıyı döndür
   }
 
   async deleteUser(id) {
-    await User.destroy({ where: { id } });
+    await UserRepository.destroy({ where: { id } });
   }
 
   async getUserById(id) {
-    const user = await User.findByPk(id);
+    const user = await UserRepository.findByPk(id);
     return user;
   }
 
   async getAllUsers() {
-    const users = await User.findAll();
+    const users = await UserRepository.findAll();
     return users;
   }
 }

@@ -1,26 +1,26 @@
-const Article = require('../models/article');
+const ArticleRepository = require('../repositories/ArticleRepository');
 
 class ArticleService { 
   async createArticle() {
-    const newArticle = await Article.create(); 
+    const newArticle = await ArticleRepository.create(); 
     return newArticle;
   }
 
   async updateArticle(articleId) {
-    await Article.update({ where: { articleId } });
+    await ArticleRepository.update({ where: { articleId } });
   }
 
   async deleteArticle(articleId) {
-    await Article.destroy({ where: { articleId } });
+    await ArticleRepository.destroy({ where: { articleId } });
   }
 
   async getArticleById(articleId) {
-    const article = await Article.findByPk(articleId);
+    const article = await ArticleRepository.findByPk(articleId);
     return article;
   }
 
   async getAllArticles() {
-    const articles = await Article.findAll();
+    const articles = await ArticleRepository.findAll();
     return articles;
   }
 }
