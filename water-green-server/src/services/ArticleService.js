@@ -11,11 +11,16 @@ class ArticleService {
   }
 
   async deleteArticle(articleId) {
-    await ArticleRepository.destroy({ where: { articleId } });
+    await ArticleRepository.delete({ where: { articleId } });
   }
 
   async getArticleById(articleId) {
-    const article = await ArticleRepository.findByPk(articleId);
+    const article = await ArticleRepository.findById(articleId);
+    return article;
+  }
+
+  async getArticleByUserId(articleId) {
+    const article = await ArticleRepository.findByUserId(articleId);
     return article;
   }
 

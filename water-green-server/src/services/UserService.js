@@ -8,15 +8,15 @@ class UserService {
 
   async updateUser(id, userData) {
     await UserRepository.update(userData, { where: { id } });
-    return await UserRepository.findByPk(id); // Güncellenmiş kullanıcıyı döndür
+    return await UserRepository.findById(id); // Güncellenmiş kullanıcıyı döndür
   }
 
   async deleteUser(id) {
-    await UserRepository.destroy({ where: { id } });
+    await UserRepository.delete({ where: { id } });
   }
 
   async getUserById(id) {
-    const user = await UserRepository.findByPk(id);
+    const user = await UserRepository.findById(id);
     return user;
   }
 
