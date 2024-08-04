@@ -7,32 +7,26 @@ const Article = sequelize.define(
     articleId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Automatically generate UUID
-      allowNull: false,
       primaryKey: true,
     },
     title: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     subtitle: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     content: {
       type: DataTypes.TEXT,
-      allowNull: false,
     },
     photo: {
       type: DataTypes.BLOB,
     },
     isPublished: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
       defaultValue: false,
     },
     id: {
       type: DataTypes.UUID,
-      allowNull: false,
       references: {
         model: "Users",
         key: "id",
