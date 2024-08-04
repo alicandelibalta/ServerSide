@@ -1,8 +1,8 @@
 const ArticleRepository = require('../repositories/ArticleRepository');
 
 class ArticleService { 
-  async createArticle() {
-    const newArticle = await ArticleRepository.create(); 
+  async createArticle(articleData) {
+    const newArticle = await ArticleRepository.create(articleData); 
     return newArticle;
   }
 
