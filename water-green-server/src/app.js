@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const router = require('./routes/adminRoutes');
+const routerAdmin = require('./routes/adminRoutes');
+const routerUser = require('./routes/userRoutes');
+
 
 const cors = require('cors');
 const morgan = require('morgan');
@@ -22,7 +24,8 @@ app.use(morgan("dev"));
 app.use(cors());
 
 //routes
-app.use('/api/admin', router);
+app.use('/api/admin', routerAdmin);
+app.use('/api/user', routerUser)
 
 //swagger
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

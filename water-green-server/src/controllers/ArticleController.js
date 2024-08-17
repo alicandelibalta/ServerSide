@@ -3,7 +3,6 @@ const articleService = require('../services/ArticleService');
 class ArticleController {
   // Create a new article
   async createArticle(req, res) {
-    console.log(req.body);
     try {
       const newArticle = await articleService.createArticle(req.body);
       res.status(201).json(newArticle);

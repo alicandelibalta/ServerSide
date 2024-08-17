@@ -1,4 +1,4 @@
-const Article = require('../models/article');
+const Article = require('../models/Article');
 
 class ArticleRepository {
   async findAll() { 
