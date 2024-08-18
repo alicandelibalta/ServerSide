@@ -1,7 +1,7 @@
 const articleService = require('../services/ArticleService');
 
 class ArticleController {
-  // Create a new article
+
   async createArticle(req, res) {
     try {
       const newArticle = await articleService.createArticle(req.body);
@@ -11,7 +11,6 @@ class ArticleController {
     }
   }
 
-  // Update an existing article
   async updateArticle(req, res) {
     try {
       const updatedArticle = await articleService.updateArticle(req.params.id, article);
@@ -21,7 +20,6 @@ class ArticleController {
     }
   }
 
-  // Delete an existing article
   async deleteArticle(req, res) {
     try {
       await articleService.deleteArticle(req.params.id);

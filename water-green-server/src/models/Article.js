@@ -32,13 +32,9 @@ const Article = sequelize.define(
         key: "id",
       },
     },
-  },
-  {
-    // options
   }
 );
 
-// Relationship with User
 Article.associate = function (models) {
   Article.belongsTo(models.Users, {
     foreignKey: "userId",

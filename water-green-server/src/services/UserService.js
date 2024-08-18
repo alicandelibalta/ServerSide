@@ -8,7 +8,7 @@ class UserService {
 
   async updateUser(id, userData) {
     await UserRepository.update(userData, { where: { id } });
-    return await UserRepository.findById(id); // Güncellenmiş kullanıcıyı döndür
+    return await UserRepository.findById(id);
   }
 
   async deleteUser(id) {

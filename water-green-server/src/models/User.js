@@ -40,9 +40,6 @@ const User = sequelize.define(
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
-  },
-  {
-    // options
   }
 );
 
