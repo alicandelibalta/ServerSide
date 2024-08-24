@@ -8,7 +8,8 @@ routerAdmin.get('/getUserById/:id', AdminController.getUserById);
 routerAdmin.post('/createUser', AdminController.createUser);
 routerAdmin.put('/updateUser/:id', AdminController.updateUser);
 routerAdmin.delete('/deleteUser/:id', AdminController.deleteUser);
-// ArtAdminicle endpoints
+
+// Article endpoints
 routerAdmin.post('/createArticle', AdminController.createArticle);
 routerAdmin.put('/updateArticle/:id', AdminController.updateArticle);
 routerAdmin.delete('/deleteArticle/:id', AdminController.deleteArticle);

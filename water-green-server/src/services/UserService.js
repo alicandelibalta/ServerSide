@@ -1,4 +1,4 @@
-const UserRepository = require ('../repositories/UserRepository');
+const UserRepository = require("../repositories/UserRepository");
 
 class UserService {
   async createUser(userData) {
@@ -18,6 +18,10 @@ class UserService {
   async getUserById(id) {
     const user = await UserRepository.findById(id);
     return user;
+  }
+
+  async getUserByEmail(email) {
+    return await UserRepository.findFirstOne({ where: { email } });
   }
 
   async getAllUsers() {

@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require("../models/User");
 
 class UserRepository {
   async findAll() {
@@ -7,6 +7,10 @@ class UserRepository {
 
   async findById(id) {
     return await User.findByPk(id); //findByPk ORM query metotu bunun için sequalize metotlarına bak.
+  }
+
+  async findFirstOne(id) {
+    return await User.findOne(id);
   }
 
   async create(user) {
@@ -23,6 +27,3 @@ class UserRepository {
 }
 
 module.exports = new UserRepository();
-
-
-

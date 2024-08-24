@@ -8,10 +8,9 @@ routerUser.post("/createUser", async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
   try { 
-    // Şifreyi hashleyin
+    // Şifre hasleme
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Kullanıcı verilerini hazırlayın
     req.body = {
       firstName,
       lastName,
@@ -26,5 +25,9 @@ routerUser.post("/createUser", async (req, res) => {
     res.status(500).json({ message: "Error occurred while creating user" });
   }
 });
+
+routerUser.post("/login", AuthController.loginUser);
+routerUser.get("/profile/:id", AuthController.getUserProfile);
+
 
 module.exports = routerUser;
