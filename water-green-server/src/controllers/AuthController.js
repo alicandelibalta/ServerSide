@@ -1,15 +1,25 @@
 const userService = require('../services/UserService');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const { generateToken, verifyToken } = require('../helpers/authHelpers');
 
-const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env.development') });
+// const path = require('path');
+// require('dotenv').config({ path: path.resolve(__dirname, '../.env.development') });
 
 class AuthController {
   
     async createUser(req, res) {
         try {
-            const newUser = await userService.createUser(req.body);
+            const { firstName, lastName, email, password } = req.body;
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            const newUser = await userService.createUser({
+                firstName,
+                lastName,
+                email,
+                password: hashedPassword,
+            });
+
             res.status(201).json(newUser);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -31,8 +41,8 @@ class AuthController {
             }
 
             // JWT Token oluştur
-            const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
+            const token = generateToken({ id: user.id, email: user.email });
+            
             // Token'ı ve user ı front end e gönder.
             res.json({ token, user });
         } catch (error) {
@@ -43,7 +53,8 @@ class AuthController {
     async getUserProfile(req, res) {
       try {
           const token = req.headers['authorization'].split(' ')[1]; // Token'ı Authorization headerdan al
-          const decoded = jwt.verify(token, process.env.JWT_SECRET); 
+    
+          const decoded = verifyToken(token); 
 
           // Token'dan alınan Id ile kullanıcıyı buluyoruz.
           const user = await userService.getUserById(decoded.id);
